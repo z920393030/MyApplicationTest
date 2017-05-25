@@ -25,6 +25,6 @@ public class NetVideoPager extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        textView.setText("本地音乐的内容");
+        textView.setText("网络视频的内容");
     }
 }
