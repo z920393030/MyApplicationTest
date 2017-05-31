@@ -1,5 +1,6 @@
 package com.atguigu.myapplicationtest.pager;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -112,13 +113,12 @@ public class RecyclerViewPager extends BaseFragment {
         NetAudioBean netAudioBean = new Gson().fromJson(json, NetAudioBean.class);
         List<NetAudioBean.ListBean> datas = netAudioBean.getList();
         String text = datas.get(0).getText();
-//        Toast.makeText(context, "text=="+text, Toast.LENGTH_SHORT).show();
         if (datas != null && datas.size() > 0) {
-            //有数据
             tvNomedia.setVisibility(View.GONE);
-            //设置适配器
             myAdapter = new RecyclerFragmentAdapter(context, datas);
             recyclerview.setAdapter(myAdapter);
+            recyclerview.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+
         } else {
             //没有数据
             tvNomedia.setVisibility(View.VISIBLE);
