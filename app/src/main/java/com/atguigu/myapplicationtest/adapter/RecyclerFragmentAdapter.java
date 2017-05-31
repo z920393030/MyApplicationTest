@@ -1,6 +1,7 @@
 package com.atguigu.myapplicationtest.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.atguigu.myapplicationtest.R;
+import com.atguigu.myapplicationtest.activity.ShowImageAndGifActivity;
 import com.atguigu.myapplicationtest.domain.NetAudioBean;
 import com.atguigu.myapplicationtest.utils.Utils;
 import com.bumptech.glide.Glide;
@@ -170,6 +172,26 @@ public class RecyclerFragmentAdapter extends RecyclerView.Adapter {
             tvShenheCaiNumber = (TextView) convertView.findViewById(R.id.tv_shenhe_cai_number);
             tvPostsNumber = (TextView) convertView.findViewById(R.id.tv_posts_number);
             llDownload = (LinearLayout) convertView.findViewById(R.id.ll_download);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NetAudioBean.ListBean listEntity = datas.get(getLayoutPosition());
+                    if(listEntity !=null ){
+                        Intent intent = new Intent(mContext,ShowImageAndGifActivity.class);
+                        if(listEntity.getType().equals("gif")){
+                            String url = listEntity.getGif().getImages().get(0);
+                            intent.putExtra("url",url);
+                            mContext.startActivity(intent);
+                        }else if(listEntity.getType().equals("image")){
+                            String url = listEntity.getImage().getBig().get(0);
+                            intent.putExtra("url",url);
+                            mContext.startActivity(intent);
+                        }
+                    }
+
+                }
+            });
         }
 
         public void setData(NetAudioBean.ListBean mediaItem) {
